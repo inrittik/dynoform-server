@@ -31,7 +31,8 @@ const fieldSchema = new Schema({
         }
     ],
     required: Boolean,
-})
+    formId: Schema.Types.ObjectId,
+}, {strict: false})
 
 const FieldSchema = model("Field", fieldSchema);
 

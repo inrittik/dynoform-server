@@ -4,8 +4,8 @@ const formSchema = new Schema({
     name: String,
     createdAt: Date,
     updatedAt: Date,
-    createdBy: String,
-    updatedBy: String,
+    createdBy: Schema.Types.ObjectId,
+    updatedBy: Schema.Types.ObjectId,
     fields: [
         {
             type: Schema.Types.ObjectId,
