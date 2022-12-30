@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { paginate, toJSON } from "./plugins";
 
 const fieldSchema = new Schema(
   {
@@ -58,6 +59,9 @@ const fieldSchema = new Schema(
   },
   { strict: false }
 );
+
+fieldSchema.plugin(paginate.default);
+fieldSchema.plugin(toJSON.default);
 
 const FieldSchema = model("Field", fieldSchema);
 

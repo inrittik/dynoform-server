@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { paginate, toJSON } from "./plugins";
 
 const userSchema = new Schema({
   name: {
@@ -19,6 +20,9 @@ const userSchema = new Schema({
     },
   ],
 });
+
+userSchema.plugin(paginate.default);
+userSchema.plugin(toJSON.default);
 
 const User = model("User", userSchema);
 

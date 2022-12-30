@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { paginate, toJSON } from "./plugins";
 
 const formSchema = new Schema({
   name: String,
@@ -13,6 +14,9 @@ const formSchema = new Schema({
     },
   ],
 });
+
+formSchema.plugin(paginate.default);
+formSchema.plugin(toJSON.default);
 
 const FormSchema = model("Form", formSchema);
 

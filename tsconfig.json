@@ -7,11 +7,12 @@
       "@utils": ["utils"],
       "@middlewares": ["middlewares"],
       "@models": ["models"],
-      "@types/*": ["./node_modules/@types"],
+      "@types/*": ["./node_modules/@types"]
     },
+    "module": "commonjs",
+    "target": "es6",
     "moduleResolution": "node",
     "incremental": true,
-    "target": "ES5",
     "experimentalDecorators": true,
     "rootDir": "./",
     "baseUrl": ".",
@@ -40,5 +41,6 @@
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-  }
+  },
+  "lib": ["es2015"]
 }

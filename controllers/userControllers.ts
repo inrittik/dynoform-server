@@ -1,9 +1,9 @@
 import httpStatus from "http-status";
 
 import { User } from "@models";
-import { CatchAsync } from "utils/catchAsync";
+import * as Utils from "@utils";
 
-const createUser = CatchAsync(async (req, res) => {
+const createUser = Utils.CatchAsync.default(async (req, res) => {
   const user = await User.default.create(req.body);
   res.status(httpStatus.CREATED).json({
     status: "success",
@@ -13,7 +13,7 @@ const createUser = CatchAsync(async (req, res) => {
   });
 });
 
-const getUserById = CatchAsync(async (req, res) => {
+const getUserById = Utils.CatchAsync.default(async (req, res) => {
   const user = await User.default.findById(req.params.id);
   res.status(httpStatus.OK).json({
     status: "success",
