@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { paginate, toJSON } from "./plugins";
+// import { paginate, toJSON } from "./plugins";
 
 const responseSchema = new Schema(
   {
@@ -10,8 +10,8 @@ const responseSchema = new Schema(
   { strict: false }
 );
 
-responseSchema.plugin(paginate.default);
-responseSchema.plugin(toJSON.default);
+// responseSchema.plugin(paginate.default);
+// responseSchema.plugin(toJSON.default);
 
 const Response = model("Response", responseSchema);
 

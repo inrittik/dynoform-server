@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 
 import { Field } from "@models";
+import {FieldServices} from "@services";
 import * as Utils from "@utils";
 
 const createField = Utils.CatchAsync.default(async (req, res) => { 
@@ -13,17 +14,8 @@ const createField = Utils.CatchAsync.default(async (req, res) => {
     });
 })
 
-const deleateField = Utils.CatchAsync.default(async (req, res) => {
-  let field;
-  field = await Field.FieldSchema.findById(req.params.id);
-  if (!field) {
-    return res.status(httpStatus.NOT_FOUND).json({
-      data: {
-        message: "Field not found",
-      },
-    });
-  }
-  await field.delete();
+const deleteField = Utils.CatchAsync.default(async (req, res) => {
+  await FieldServices.removeField(req.params.id);
   return res.status(httpStatus.OK).json({
     status: "success",
   });
@@ -50,4 +42,4 @@ const updateField = Utils.CatchAsync.default(async (req, res) => {
   });
 });
 
-export { createField, deleateField, updateField };
+export { createField, deleteField, updateField };

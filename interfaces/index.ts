@@ -1,4 +1,3 @@
-import * as Controller from "./controller";
-import * as Middleware from "./middleware";
+import * as Controller from './controllers';
 
-export { Controller, Middleware };
+export { Controller };

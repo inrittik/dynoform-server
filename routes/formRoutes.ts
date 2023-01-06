@@ -3,7 +3,9 @@ import { FormControllers } from "@controllers";
 
 const router = Router();
 
-// router.get('/form/:id', FormControllers.getFormById);
-router.post('/form/create', FormControllers.createForm);
+router.get('/get/:id', FormControllers.getForm);
+router.post('/create', FormControllers.createForm);
+router.put('/update/:id', FormControllers.updateForm);
+router.delete('/delete/:id', FormControllers.deleteForm);
 
 export default router;

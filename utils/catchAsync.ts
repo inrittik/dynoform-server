@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import * as Interfaces from "../interfaces";
+import * as Interfaces from "@interfaces";
 
 const CatchAsync = (fn: Interfaces.Controller.Async) => {
   return (req: Request, res: Response, next: NextFunction) => {

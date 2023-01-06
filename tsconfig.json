@@ -6,6 +6,7 @@
       "@controllers": ["controllers"],
       "@utils": ["utils"],
       "@middlewares": ["middlewares"],
+      "@services": ["services"],
       "@models": ["models"],
       "@types/*": ["./node_modules/@types"]
     },
