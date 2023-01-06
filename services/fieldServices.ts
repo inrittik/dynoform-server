@@ -1,29 +1,24 @@
 import httpStatus from "http-status";
+import { Types } from "mongoose";
 
 import * as Models from "@models";
 import * as Utils from "@utils";
 
-const removeField = async (fieldId: string) => {
+
+const addField = async (fieldId: Types.ObjectId, formId: Types.ObjectId) => {
   try {
-    let field = await Models.Field.FieldSchema.findById(fieldId);
-    if (!field) {
-      throw new Utils.ApiError.default(httpStatus.NOT_FOUND, "Field not found");
-    }
-    let formId = field.formId;
-    if (!formId) {
-      throw new Utils.ApiError.default(
-        httpStatus.INTERNAL_SERVER_ERROR,
-        "Field not associated to any Form"
-      );
-    }
-    let form = await Models.Form.FormSchema.findById(formId);
+    const form = await Models.Form.FormSchema.findById(formId);
     if (!form) {
       throw new Utils.ApiError.default(
         httpStatus.BAD_REQUEST,
         "Form associated to this field doesn't exist"
       );
     }
-    await field.deleteOne({ _id: fieldId });
+    form.fields.push(fieldId);
+    await form.save();
+    return {
+      form
+    }
   } catch (err) {
     throw new Utils.ApiError.default(
       httpStatus.INTERNAL_SERVER_ERROR,
@@ -32,4 +27,27 @@ const removeField = async (fieldId: string) => {
   }
 };
 
-export { removeField };
+
+const removeField = async (fieldId: Types.ObjectId) => { 
+  try {
+    const field = await Models.Field.FieldSchema.findById(fieldId);
+    if (!field) {
+      throw new Utils.ApiError.default(
+        httpStatus.BAD_REQUEST,
+        "Field doesn't exist"
+      );
+    }
+    await Models.Form.FormSchema.updateOne(
+      { _id: field.formId },
+      { $pull: { fields: fieldId } }
+    )
+  }
+  catch (err) {
+    throw new Utils.ApiError.default(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      err instanceof Error ? err.message : "Internal Server Error"
+    );
+  }
+}
+
+export { removeField, addField };

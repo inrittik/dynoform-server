@@ -1,4 +1,4 @@
-import mongoose,{ Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 // import { paginate, toJSON } from "./plugins";
 
 const fieldSchema = new Schema(
@@ -59,7 +59,7 @@ const fieldSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Form",
       required: true,
-    }
+    },
   },
   { strict: false }
 );
@@ -67,17 +67,6 @@ const fieldSchema = new Schema(
 // fieldSchema.plugin(paginate.default);
 // fieldSchema.plugin(toJSON.default);
 
-
-fieldSchema.pre("deleteOne", function (next) { 
-  const formId = this.getQuery()["formId"];
-  mongoose
-    .model("Form")
-    .updateOne(
-      { _id: formId },
-      { $pull: { fields: this.getQuery()["_id"] } },
-  )
-  next();
-})
 
 const FieldSchema = model("Field", fieldSchema);
 
